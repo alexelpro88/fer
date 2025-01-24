@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagen con Efecto de Rayos</title>
+    <style>
+        body {
+            background-color: #69b6c1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            animation: none; /* Al principio no hay animación */
+        }
+
+        img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Caja de la carta */
+        .carta {
+            display: none;
+            width: 300px;
+            height: auto;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+            animation: rayos 1s infinite alternate;
+            max-width: 350px;
+        }
+
+        /* Efecto de rayos alrededor de la carta */
+        @keyframes rayos {
+            0% {
+                box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.6), 0 0 20px 10px rgba(255, 255, 255, 0.3);
+            }
+            25% {
+                box-shadow: 0 0 20px 10px rgba(255, 255, 255, 1), 0 0 40px 20px rgba(255, 255, 255, 0.8);
+            }
+            50% {
+                box-shadow: 0 0 30px 15px rgba(255, 255, 255, 1), 0 0 60px 30px rgba(255, 255, 255, 0.7);
+            }
+            75% {
+                box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.8), 0 0 40px 20px rgba(255, 255, 255, 0.6);
+            }
+            100% {
+                box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.6), 0 0 20px 10px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        /* Efecto de fuego para la imagen */
+        @keyframes fuegoImagen {
+            0% {
+                filter: none;
+            }
+            25% {
+                filter: brightness(2) saturate(3) hue-rotate(50deg);
+            }
+            50% {
+                filter: brightness(2.5) saturate(4) hue-rotate(100deg);
+            }
+            75% {
+                filter: brightness(2) saturate(3) hue-rotate(150deg);
+            }
+            100% {
+                filter: none;
+            }
+        }
+
+        /* Estilos para el texto dentro de la carta */
+        h1 {
+            color: #ff6347;
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        a {
+            font-size: 16px;
+            color: #1e90ff;
+            text-decoration: none;
+            font-family: 'Arial', sans-serif;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <img src="hola.png" alt="Descripción de la imagen" id="imagen" onclick="mostrarCarta()">
+    
+    <div class="carta" id="carta" onclick="cerrarCarta(event)">
+        <h1>¡Happy Birthday! Fernando</h1>
+        <p>Te espero el día Domingo 26 de enero a las 12:30 P.M.<br>
+        Lugar: Churrasquería El Rodeo<br>
+        <a href="https://maps.app.goo.gl/hiuj8VuBaS67wPzG9" target="_blank">Ubicación</a>
+    </div>
+
+    <script>
+        function mostrarCarta() {
+            var carta = document.getElementById('carta');
+            var imagen = document.getElementById('imagen');
+
+            // Mostrar la carta
+            carta.style.display = 'block';
+
+            // Activar el fuego en la imagen (filtro CSS)
+            imagen.style.animation = 'fuegoImagen 1s forwards'; 
+        }
+
+        function cerrarCarta(event) {
+            event.stopPropagation();
+            var carta = document.getElementById('carta');
+            var imagen = document.getElementById('imagen');
+
+            // Cerrar la carta
+            carta.style.display = 'none';
+
+            // Apagar el fuego de la imagen
+            imagen.style.animation = 'none'; // Remover la animación de fuego
+        }
+    </script>
+
+</body>
+</html>
+
